@@ -1,0 +1,17 @@
+# Raw sequencing data
+raw_fastq/
+trimmed/
+
+# R session files
+.RData
+.Rhistory
+Rplots.pdf
+*.RData
+
+# Large/intermediate analysis files
+qc/
+taxonomic/
+
+# Temporary files
+*.tmp
+*.log
