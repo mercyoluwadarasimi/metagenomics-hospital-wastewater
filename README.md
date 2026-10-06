@@ -7,12 +7,11 @@ wastewater metagenomic sequencing data.
 
 The project was undertaken as a practical learning exercise in microbial
 metagenomics, with emphasis on taxonomic profiling, microbial diversity,
-relative abundance analysis, and downstream investigation of antimicrobial
-resistance and other metagenomic features.
+relative abundance analysis, and antimicrobial resistance (AMR) detection.
 
 ## Study Samples
 
-Six publicly available hospital wastewater samples were selected for analysis.
+Six publicly available hospital wastewater samples were analyzed.
 
 | Sample | Country | Accession |
 |---|---|---|
@@ -25,9 +24,9 @@ Six publicly available hospital wastewater samples were selected for analysis.
 
 ## Analysis Workflow
 
-The project uses a combination of Galaxy, Linux/WSL, and R.
+The project uses Galaxy, Linux/WSL, and R.
 
-### Data Processing and Taxonomic Classification
+### 1. Sequencing Data Processing
 
 Initial sequencing-data processing and taxonomic classification were performed
 using Galaxy.
@@ -40,67 +39,100 @@ The workflow included:
 - Kraken2 taxonomic classification
 - Combination of Kraken2 reports across samples
 
-The resulting data were subsequently transferred to the Linux/WSL environment
-for downstream analysis.
+The resulting data were transferred to Linux/WSL for downstream analysis.
 
-### Downstream Analysis
+### 2. Taxonomic and Diversity Analysis
 
-Downstream analysis was performed using R in the Linux/WSL environment.
+Downstream analysis was performed using R.
 
 Completed analyses include:
 
 - Genus-level abundance profiling
 - Alpha diversity analysis
-- Bray-Curtis dissimilarity analysis
+- Bray-Curtis dissimilarity
 - Beta diversity analysis
 - Principal Coordinates Analysis (PCoA)
 - Relative abundance analysis
-- Identification of the 20 most abundant genera across samples
-- Top-20 genus grouped bar plot
+- Top-20 genus visualization
 - Top-20 genus relative-abundance heatmap
 
-## Current Project Status
+The combined Kraken reports contained approximately 75.9 million classified
+reads across the six samples.
 
-The project has currently completed:
+### 3. Antimicrobial Resistance Analysis
 
-- Public dataset selection
-- Quality control
-- Read trimming
-- Kraken2 taxonomic classification
-- Combination of taxonomic reports
-- Genus-level abundance analysis
-- Alpha diversity
-- Bray-Curtis dissimilarity
-- Beta diversity
-- PCoA
-- Relative abundance analysis
-- Top-20 genus visualization
-- Top-20 genus heatmap
+AMR determinants were investigated across all six samples.
 
-The next stage of the project is antimicrobial resistance (AMR) analysis.
+The AMR workflow included:
 
-The README will be updated as additional analyses are completed.
+- Combining AMR detection results across samples
+- AMR determinant identification
+- Sample-level detection frequency
+- AMR class profiling
+- AMR class presence/absence analysis
+- AMR class comparison between samples
+- Visualization of major AMR classes
+- Visualization of the top 20 AMR determinants
+- Coverage and sequence-identity quality assessment
+
+A total of 613 AMR detection records representing 234 unique AMR determinants
+were identified across the six samples.
+
+The most frequently represented AMR classes by detection records were
+beta-lactams, aminoglycosides, and tetracyclines.
+
+One mcr-10 determinant was detected in sample ERR7015367 with 100% reference
+coverage and 99.81% sequence identity. This represents metagenomic detection
+of an AMR determinant and should not be interpreted as direct evidence of
+phenotypic antimicrobial resistance.
+
+## Quality Control of AMR Detections
+
+Across the 613 AMR detection records:
+
+- Minimum reference coverage: 50.00%
+- Maximum reference coverage: 100.00%
+- Mean reference coverage: 89.69%
+- All detections had sequence identity of at least 90%
+
+Coverage and identity were considered when interpreting individual AMR
+detections, particularly for partial matches.
+
+## Key Results
+
+The project demonstrates:
+
+- Taxonomic characterization of hospital wastewater metagenomes
+- Comparison of microbial diversity across samples
+- Relative-abundance profiling of bacterial genera
+- Detection and characterization of AMR determinants
+- Comparison of AMR classes across wastewater samples
+- Quality assessment of detected AMR sequences
+
+The results provide a practical example of how publicly available metagenomic
+data can be processed and analyzed for microbial community and antimicrobial
+resistance surveillance.
 
 ## Repository Structure
 
 ```text
 metagenomics-hospital-wastewater/
 │
-├── amr/                  # Antimicrobial resistance analysis
+├── amr/                  # AMR detection results, tables, and figures
 ├── metadata/             # Sample metadata
-├── qc/                   # Quality-control outputs
-├── raw_fastq/            # Raw sequencing data (not tracked by Git)
-├── results/              # Analysis results and figures
-├── scripts/              # Reproducible analysis scripts
-├── taxonomic/            # Taxonomic analysis files
-├── trimmed/              # Trimmed reads (not tracked by Git)
+├── results/              # Taxonomic, diversity, and relative-abundance results
+├── scripts/              # Reproducible R analysis scripts
 │
-├── genus_abundance.tsv
-├── top20_relative_abundance.png
-├── top20_relative_abundance_heatmap.png
+├── raw_fastq/            # Raw sequencing data (not tracked by Git)
+├── trimmed/              # Trimmed reads (not tracked by Git)
+├── qc/                   # Quality-control files (not tracked by Git)
+├── taxonomic/            # Taxonomic intermediate files (not tracked by Git)
+│
+├── genus_abundance.tsv   # Genus-level abundance table
 ├── .gitignore
 └── README.md
-Tools and Technologies
+```
+## Tools and Technologies
 Galaxy
 Kraken2
 Linux / WSL
@@ -108,46 +140,26 @@ R
 ggplot2
 dplyr
 tidyr
-Data and Reproducibility
+viridis
+Git / GitHub
+## Data and Reproducibility
 
 The sequencing data used in this project are publicly available datasets.
-Raw and trimmed sequencing files are not included in this repository because
-of their large file sizes.
 
-Metadata, analysis results, figures, and analysis scripts are included where
-appropriate to document the workflow and support reproducibility.
+Raw and trimmed sequencing files are not included in the GitHub repository
+because of their size. Intermediate quality-control and taxonomic files are
+also excluded through .gitignore.
 
-Project Purpose
+Processed analysis tables, visualizations, AMR results, metadata, and
+reusable analysis scripts are included where appropriate to document the
+workflow and support reproducibility.
+
+## Project Purpose
 
 This project serves as a practical bioinformatics learning portfolio,
 demonstrating the application of metagenomic analysis tools to hospital
-wastewater sequencing data.
+wastewater data.
 
-The project documents the progression from sequencing quality control and
-taxonomic classification through statistical analysis, visualization, and
-subsequent metagenomic investigations.Tools and Technologies
-Galaxy
-Kraken2
-Linux / WSL
-R
-ggplot2
-dplyr
-tidyr
-Data and Reproducibility
-
-The sequencing data used in this project are publicly available datasets.
-Raw and trimmed sequencing files are not included in this repository because
-of their large file sizes.
-
-Metadata, analysis results, figures, and analysis scripts are included where
-appropriate to document the workflow and support reproducibility.
-
-Project Purpose
-
-This project serves as a practical bioinformatics learning portfolio,
-demonstrating the application of metagenomic analysis tools to hospital
-wastewater sequencing data.
-
-The project documents the progression from sequencing quality control and
-taxonomic classification through statistical analysis, visualization, and
-subsequent metagenomic investigations.
+The project documents a workflow from sequencing quality control and taxonomic
+classification through diversity analysis, visualization, and antimicrobial
+resistance investigation.
